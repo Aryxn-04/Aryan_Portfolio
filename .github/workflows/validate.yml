@@ -1,0 +1,44 @@
+name: Validate foundation
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - codex/portfolio-foundation
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_TELEMETRY_DISABLED: 1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Lint
+        run: npm run lint
+      - name: Production build
+        run: npm run build
+      - name: Check development server
+        shell: bash
+        run: |
+          npm run dev -- --hostname 127.0.0.1 > "$RUNNER_TEMP/portfolio-dev.log" 2>&1 &
+          DEV_PID=$!
+          trap 'kill "$DEV_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent --max-time 5 http://127.0.0.1:3000/ > "$RUNNER_TEMP/portfolio-dev.html"; then
+              echo "Development route responded successfully."
+              exit 0
+            fi
+            sleep 1
+          done
+          cat "$RUNNER_TEMP/portfolio-dev.log"
+          exit 1
