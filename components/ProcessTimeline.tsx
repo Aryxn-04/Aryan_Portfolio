@@ -1,7 +1,9 @@
 "use client";
 
+import { useReducedMotion } from "@/lib/useReducedMotion";
+
 import { useRef, useState, useSyncExternalStore, type RefObject } from "react";
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { m as motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import { processContent, processSteps } from "@/data/process";
 
 const TIMELINE = {

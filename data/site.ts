@@ -1,5 +1,6 @@
 export const site = {
   name: "Aryan Kumar",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://aryan-portfolio-one-nu.vercel.app",
   title: "Aryan Kumar | Video Editor & Motion Designer",
   description: "The portfolio of Aryan Kumar, video editor and motion designer.",
   mainLabel: "Aryan Kumar portfolio",

@@ -1,13 +1,14 @@
 "use client";
 
+import { useReducedMotion } from "@/lib/useReducedMotion";
+
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { m as motion } from "motion/react";
 import { ArrowRight, ArrowUpRight, Check, Copy, LoaderCircle, Mail } from "lucide-react";
 import { contact, contactLimits, validateContact, type ContactField } from "@/data/site";
-import { DURATION, EASING, fadeUp } from "@/lib/motion";
+import { fadeUp } from "@/lib/motion";
 
 const COPY_RESET_MS = 2500;
-const UNDERLINE_LENGTH = 1;
 const fieldClass = "mt-2 w-full rounded-md border border-hairline bg-bg/40 px-4 py-4 text-sm text-text placeholder:text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30";
 export default function Contact() {
   const reduced = useReducedMotion();
@@ -54,17 +55,17 @@ export default function Contact() {
       <div className="grid items-start gap-12 min-[900px]:grid-cols-[1.2fr_1fr]">
         <div className="py-4">
           <h2 id="contact-heading" className="text-[clamp(2.75rem,5vw,4.5rem)] font-semibold leading-[1.02] tracking-heading">
-            {contact.headline[0]}<br />{contact.headline[1]}{" "}<span className="relative inline-block font-handwriting text-[1.2em] font-normal text-accent">{contact.headline[2]}<svg aria-hidden="true" viewBox="0 0 180 20" className="absolute -bottom-2 left-0 w-full overflow-visible fill-none stroke-current"><motion.path d="M3 16 Q78 1 177 5" pathLength={UNDERLINE_LENGTH} strokeWidth="3" strokeLinecap="round" strokeDasharray={UNDERLINE_LENGTH} initial={reduced ? false : { strokeDashoffset: UNDERLINE_LENGTH }} whileInView={{ strokeDashoffset: 0 }} viewport={{ once: true }} transition={{ duration: reduced ? 0 : DURATION.reveal, ease: EASING }} /></svg></span><br />{contact.headline[3]}
+            {contact.headline[0]}<br />{contact.headline[1]}{" "}<span className="relative inline-block font-handwriting text-[1.2em] font-normal text-accent">{contact.headline[2]}<svg aria-hidden="true" viewBox="0 0 180 20" className="absolute -bottom-2 left-0 w-full overflow-visible fill-none stroke-current"><path d="M3 16 Q78 1 177 5" strokeWidth="3" strokeLinecap="round" /></svg></span><br />{contact.headline[3]}
           </h2>
           <p className="mt-8 max-w-xl text-sm leading-relaxed text-muted sm:text-base">{contact.description}</p>
           <div className="mt-8 flex items-center gap-4 rounded-md border border-hairline bg-surface-1/40 px-4 py-4 sm:px-6">
             <Mail aria-hidden="true" className="hidden shrink-0 sm:block" size={24} />
             <a href={`mailto:${contact.email}`} className="min-w-0 flex-1 break-all text-lg font-semibold tracking-heading sm:text-2xl">{contact.email}</a>
-            <button type="button" onClick={copyEmail} aria-label={contact.copy} className="shrink-0 rounded-md p-2 text-muted transition-colors hover:text-text">{copyStatus === contact.copied ? <Check size={20} /> : <Copy size={20} />}</button>
+            <button type="button" onClick={copyEmail} aria-label={contact.copy} className="shrink-0 rounded-md p-2 text-muted  hover:text-text">{copyStatus === contact.copied ? <Check size={20} /> : <Copy size={20} />}</button>
           </div>
           <p role="status" className="mt-2 min-h-6 text-xs text-muted">{copyStatus}</p>
-          <a href={contact.bookingUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-4 rounded-md border border-hairline px-6 py-4 text-sm transition-colors hover:border-accent hover:text-accent">{contact.callLabel}<ArrowUpRight size={18} aria-hidden="true" /></a>
-          <p className="mt-6 flex flex-wrap items-center gap-2 text-xs sm:text-sm"><span aria-hidden="true" className="h-2 w-2 rounded-full bg-[#00dd88] motion-safe:animate-pulse" />{contact.availability}<span className="text-muted">· {contact.availabilityDate}</span></p>
+          <a href={contact.bookingUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-4 rounded-md border border-hairline px-6 py-4 text-sm hover:border-accent hover:text-accent">{contact.callLabel}<ArrowUpRight size={18} aria-hidden="true" /></a>
+          <p className="mt-6 flex flex-wrap items-center gap-2 text-xs sm:text-sm"><span aria-hidden="true" className="h-2 w-2 rounded-full bg-[#00dd88]" />{contact.availability}<span className="text-muted">· {contact.availabilityDate}</span></p>
         </div>
         <form onSubmit={submit} noValidate className="rounded-lg border border-hairline bg-surface-1/60 p-6 shadow-2xl backdrop-blur-xl sm:p-8" aria-label={contact.formTitle} aria-busy={status === "loading"}>
           <div className="mb-6 flex justify-between font-mono text-xs uppercase"><h3>{contact.formTitle}</h3><span aria-hidden="true" className="text-muted">{"// 01"}</span></div>
@@ -78,7 +79,7 @@ export default function Contact() {
             </div>)}
           </div>
           <div aria-hidden="true" className="hidden"><label htmlFor="contact-website">{contact.fields.website}</label><input id="contact-website" name="website" tabIndex={-1} autoComplete="off" /></div>
-          <button type="submit" disabled={status === "loading"} className="mt-4 flex w-full items-center justify-center gap-4 rounded-md bg-text px-6 py-4 text-sm font-semibold text-bg transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60">{status === "loading" ? contact.sending : contact.submit}{status === "loading" ? <LoaderCircle aria-hidden="true" size={18} className="motion-safe:animate-spin" /> : <ArrowRight aria-hidden="true" size={18} />}</button>
+          <button type="submit" disabled={status === "loading"} className="mt-4 flex w-full items-center justify-center gap-4 rounded-md bg-text px-6 py-4 text-sm font-semibold text-bg transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60">{status === "loading" ? contact.sending : contact.submit}{status === "loading" ? <LoaderCircle aria-hidden="true" size={18} className="" /> : <ArrowRight aria-hidden="true" size={18} />}</button>
           <p className="mt-4 text-center text-xs text-muted">{contact.response}</p>
           <div aria-live="polite" aria-atomic="true">{feedback && <p role={status === "error" ? "alert" : "status"} className={`mt-4 text-sm ${status === "error" ? "text-[#fca5a5]" : "text-text"}`}>{feedback}</p>}</div>
         </form>

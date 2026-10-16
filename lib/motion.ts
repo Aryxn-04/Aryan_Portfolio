@@ -1,7 +1,7 @@
 import type { Variants } from "motion/react";
 
 export const EASING = [0.22, 1, 0.36, 1] as const;
-export const DURATION = { ui: 0.4, reveal: 0.8 } as const;
+export const DURATION = { ui: 0.4, reveal: 0.8, drift: 20 } as const;
 export const MOTION = {
   revealDistance: 24,
   staggerChildren: 0.08,

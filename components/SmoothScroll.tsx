@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
-import { cubicBezier, MotionConfig } from "motion/react";
+import { cubicBezier, MotionConfig, LazyMotion, domAnimation } from "motion/react";
 import Lenis from "lenis";
 import { DURATION, EASING, REDUCED_MOTION_QUERY } from "@/lib/motion";
 
@@ -22,6 +22,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
           duration: DURATION.reveal,
           easing: scrollEasing,
           smoothWheel: true,
+          anchors: { offset: -80 },
         });
       }
     };
@@ -36,8 +37,8 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <MotionConfig reducedMotion="user" transition={{ duration: DURATION.ui, ease: EASING }}>
+    <LazyMotion features={domAnimation}><MotionConfig reducedMotion="user" transition={{ duration: DURATION.ui, ease: EASING }}>
       {children}
-    </MotionConfig>
+    </MotionConfig></LazyMotion>
   );
 }
