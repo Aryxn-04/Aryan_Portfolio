@@ -2,6 +2,7 @@
 
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
+import HeroBackground from "@/components/HeroBackground";
 import Image from "next/image";
 import { useRef } from "react";
 import { ArrowRight, Play } from "lucide-react";
@@ -20,7 +21,8 @@ export default function Hero({ portraits = { primary: false, secondary: false },
   const missing = { primary: !portraits.primary, secondary: !portraits.secondary };
 
   return (
-    <motion.section ref={section} id={hero.id} aria-labelledby="home-heading" variants={fadeUp} initial={reduced ? false : "hidden"} animate="visible" className="flex items-center overflow-hidden py-12 lg:min-h-[calc(100svh-var(--nav-height))] lg:py-8">
+    <motion.section ref={section} id={hero.id} aria-labelledby="home-heading" variants={fadeUp} initial={reduced ? false : "hidden"} animate="visible" className="relative isolate flex min-h-[calc(100svh-var(--nav-height))] items-center overflow-hidden py-8 lg:py-0">
+      <HeroBackground />
       <div className="content-shell">
         <div className="grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <div className="order-1 min-w-0 lg:order-2">

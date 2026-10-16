@@ -3,6 +3,44 @@
 @tailwind utilities;
 
 :root {
+  /* Hero lighting / wordmark tuning. Gradients soften the lights without blur filters. */
+  --hero-aurora-primary-size: 700px;
+  --hero-aurora-primary-alpha: 0.20;
+  --hero-aurora-primary-x: 66%;
+  --hero-aurora-primary-y: 42%;
+  --hero-aurora-primary-duration: 24s;
+  --hero-aurora-secondary-size: 500px;
+  --hero-aurora-secondary-alpha: 0.12;
+  --hero-aurora-secondary-x: 92%;
+  --hero-aurora-secondary-y: 90%;
+  --hero-aurora-secondary-duration: 30s;
+  --hero-aurora-falloff: 70%;
+  --hero-drift-x: 3%;
+  --hero-drift-y: -2%;
+  --hero-spotlight-rgb: 199 201 255;
+  --hero-spotlight-alpha: 0.12;
+  --hero-spotlight-width: 600px;
+  --hero-spotlight-height: 700px;
+  --hero-spotlight-x: 28%;
+  --hero-spotlight-y: 45%;
+  --hero-spotlight-falloff: 70%;
+  --hero-spotlight-origin-y: 25%;
+  --hero-stacked-spotlight-x: 50%;
+  --hero-stacked-streak-x: 10%;
+  --hero-stacked-streak-width: 80%;
+  --hero-streak-alpha: 0.07;
+  --hero-streak-height: 1px;
+  --hero-streak-x: 8%;
+  --hero-streak-y: 58%;
+  --hero-streak-width: 42%;
+  --hero-vignette-alpha: 0.60;
+  --hero-vignette-clear: 40%;
+  --hero-mobile-aurora-y: 24%;
+  --hero-stacked-spotlight-y: 80%;
+  --nav-monogram-size: 30px;
+  --nav-monogram-radius: var(--space-1);
+  --nav-monogram-glow-size: 16px;
+  --nav-monogram-glow-alpha: 0.12;
   color-scheme: dark;
   --bg: #0b0b0d;
   --bg-rgb: 11 11 13;
@@ -138,4 +176,36 @@
 .cursor-glow-pulse { width: var(--cursor-pulse); height: var(--cursor-pulse); border: 1px solid var(--cursor-accent); border-radius: 50%; opacity: 0; }
 @media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
   .cursor-glow { display: none; }
+}
+
+/* Cursor translation and slow drift use separate transform layers. */
+.hero-background { --hero-pointer-x: 0px; --hero-pointer-y: 0px; }
+.hero-aurora-track { position: absolute; transform: translate3d(var(--hero-pointer-x), var(--hero-pointer-y), 0); }
+.hero-aurora-track-primary { width: var(--hero-aurora-primary-size); height: var(--hero-aurora-primary-size); left: var(--hero-aurora-primary-x); top: var(--hero-aurora-primary-y); margin-left: calc(var(--hero-aurora-primary-size) / -2); margin-top: calc(var(--hero-aurora-primary-size) / -2); }
+.hero-aurora-track-secondary { width: var(--hero-aurora-secondary-size); height: var(--hero-aurora-secondary-size); left: var(--hero-aurora-secondary-x); top: var(--hero-aurora-secondary-y); margin-left: calc(var(--hero-aurora-secondary-size) / -2); margin-top: calc(var(--hero-aurora-secondary-size) / -2); }
+.hero-aurora { position: absolute; inset: 0; }
+.hero-aurora-primary { background: radial-gradient(ellipse at center, rgb(var(--accent-rgb) / var(--hero-aurora-primary-alpha)), transparent var(--hero-aurora-falloff)); }
+.hero-aurora-secondary { background: radial-gradient(ellipse at center, rgb(var(--accent-rgb) / var(--hero-aurora-secondary-alpha)), transparent var(--hero-aurora-falloff)); }
+.hero-spotlight { position: absolute; width: var(--hero-spotlight-width); height: var(--hero-spotlight-height); left: var(--hero-spotlight-x); top: var(--hero-spotlight-y); transform: translate(-50%, -50%); background: radial-gradient(ellipse at 50% var(--hero-spotlight-origin-y), rgb(var(--hero-spotlight-rgb) / var(--hero-spotlight-alpha)), transparent var(--hero-spotlight-falloff)); }
+.hero-light-streak { position: absolute; left: var(--hero-streak-x); top: var(--hero-streak-y); width: var(--hero-streak-width); height: var(--hero-streak-height); background: linear-gradient(90deg, transparent, rgb(var(--hero-spotlight-rgb) / var(--hero-streak-alpha)), transparent); }
+.hero-vignette { background: radial-gradient(ellipse at center, transparent var(--hero-vignette-clear), rgb(var(--bg-rgb) / var(--hero-vignette-alpha))); }
+.nav-monogram { border-radius: var(--nav-monogram-radius); width: var(--nav-monogram-size); height: var(--nav-monogram-size); box-shadow: 0 0 var(--nav-monogram-glow-size) rgb(var(--accent-rgb) / var(--nav-monogram-glow-alpha)); }
+@keyframes hero-aurora-primary-drift { 50% { transform: translate(var(--hero-drift-x), var(--hero-drift-y)); } }
+@keyframes hero-aurora-secondary-drift { 50% { transform: translate(calc(var(--hero-drift-x) * -1), calc(var(--hero-drift-y) * -1)); } }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-aurora-primary { animation: hero-aurora-primary-drift var(--hero-aurora-primary-duration) var(--motion-ease) infinite; }
+  .hero-aurora-secondary { animation: hero-aurora-secondary-drift var(--hero-aurora-secondary-duration) var(--motion-ease) infinite; }
+}
+@media (max-width: 1023px) {
+  .hero-spotlight { left: var(--hero-stacked-spotlight-x); top: var(--hero-stacked-spotlight-y); }
+  .hero-light-streak { top: var(--hero-stacked-spotlight-y); left: var(--hero-stacked-streak-x); width: var(--hero-stacked-streak-width); }
+}
+@media (max-width: 767px) {
+  .hero-aurora-track { transform: none; }
+  .hero-aurora-track-primary { top: var(--hero-mobile-aurora-y); }
+  .hero-aurora-track-secondary { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-aurora-track { transform: none; }
+  .hero-aurora { animation: none; }
 }
