@@ -23,7 +23,7 @@ export const navigation = [
 export const hero = {
   id: "home",
   wordmark: "ARYAN KUMAR",
-  wordmarkMonogram: "AK",
+  logoPath: "/logo-mark.svg",
   wordmarkSubtitle: "VIDEO EDITOR",
   availability: "Available for freelance, October 2026",
   work: "View My Work",
