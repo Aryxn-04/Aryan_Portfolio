@@ -46,3 +46,49 @@ export const playerCopy = {
   play: "Play showreel", pause: "Pause showreel", mute: "Mute", unmute: "Unmute",
   fullscreen: "Toggle fullscreen", seek: "Seek showreel",
 } as const;
+
+// Replace these placeholder destinations before publishing.
+export const contact = {
+  label: "04 — Contact",
+  eyebrow: "[ Let's work together ]",
+  headline: ["Let's create", "something", "worth", "watching."],
+  description: "Have a project in mind? A collaboration idea? Or just want to say hi? I'm always open to interesting conversations and creative opportunities.",
+  email: "hello@example.com",
+  bookingUrl: "https://example.com/book-a-call",
+  callLabel: "Schedule a Call",
+  availability: "Available for freelance",
+  availabilityDate: "October 2026",
+  formTitle: "Send a message",
+  fields: { name: "Name", email: "Email", projectType: "Project Type", message: "Message", website: "Website (leave empty)" },
+  placeholders: { name: "Your Name", email: "Your Email", projectType: "Select a project type", message: "Tell me about your project…" },
+  projectTypes: ["YouTube", "Reels/Short-form", "Commercial/Brand film", "Motion graphics"],
+  submit: "Send Message", sending: "Sending…",
+  response: "I usually respond within 24 hours.",
+  success: "Thanks! Your message has been sent. I'll be in touch soon.",
+  failure: "Unable to send your message. Please try again or email me directly.",
+  copy: "Copy email address", copied: "Copied", copyFailure: "Couldn't copy. Select the email address to copy it manually.",
+} as const;
+
+export const contactLimits = { name: 100, email: 254, message: 5000, minMessage: 10 } as const;
+export type ContactField = "name" | "email" | "projectType" | "message";
+export function validateContact(payload: Record<string, unknown>): Partial<Record<ContactField, string>> {
+  const errors: Partial<Record<ContactField, string>> = {};
+  if (typeof payload.name !== "string" || !payload.name.trim() || payload.name.trim().length > contactLimits.name) errors.name = "Enter your name (1–100 characters).";
+  if (typeof payload.email !== "string" || payload.email.length > contactLimits.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email.trim())) errors.email = "Enter a valid email address, such as name@example.com.";
+  if (!contact.projectTypes.some(type => type === payload.projectType)) errors.projectType = "Select one of the four project types.";
+  if (typeof payload.message !== "string" || payload.message.trim().length < contactLimits.minMessage || payload.message.length > contactLimits.message) errors.message = "Describe your project in 10–5,000 characters.";
+  return errors;
+}
+
+export const footer = {
+  wordmark: "ARYAN'S", wordmarkSuffix: "PORTFOLIO",
+  tagline: "Video Editor & Motion Designer", motto: "Ideas → Stories → Impact",
+  copyright: "Aryan Kumar. All rights reserved.", backToTop: "Back to top",
+  socials: [
+    { name: "Instagram", href: "https://www.instagram.com/your-handle" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/your-handle" },
+    { name: "YouTube", href: "https://www.youtube.com/@your-handle" },
+    { name: "Behance", href: "https://www.behance.net/your-handle" },
+    { name: "X", href: "https://x.com/your-handle" },
+  ],
+} as const;
