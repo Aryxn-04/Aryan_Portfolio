@@ -1,8 +1,10 @@
 "use client";
 
+import { useReducedMotion } from "@/lib/useReducedMotion";
+
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { motion, useReducedMotion } from "motion/react";
+import { m as motion } from "motion/react";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import { type Project, workContent } from "@/data/projects";
 import { DURATION, EASING } from "@/lib/motion";
