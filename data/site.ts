@@ -10,7 +10,6 @@ export const sectionOrder = [
   "Hero",
   "Work",
   "Toolkit",
-  "About",
   "Contact",
   "Footer",
 ] as const;
@@ -18,25 +17,41 @@ export const sectionOrder = [
 export const navigation = [
   { label: "Work", href: "#work" },
   { label: "Toolkit", href: "#toolkit" },
-  { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ] as const;
 
 export const hero = {
+  id: "home",
   wordmark: "ARYAN KUMAR",
   availability: "Available for freelance, October 2026",
-  headline: ["I turn raw footage into", "stories people remember."],
-  description: "Video editor specializing in YouTube, short-form, brand films, and motion graphics.",
   work: "View My Work",
   watch: "Watch Showreel",
   talk: "Let's Talk",
-  scroll: "Scroll",
-  video: { src: "/videos/Built_Around_You_4K_Silent.mp4", poster: undefined },
+  eyebrow: "[ About me ]",
+  heading: "Hi, I'm Aryan.",
+  intro: "A Video Editor & Motion Designer who loves turning ideas into visuals that actually feel something.",
+  bio: "I’m a video editor and motion designer with a passion for crafting engaging visual stories — from short-form content to brand films. I enjoy the entire process, from raw footage to the final frame, where editing, motion and sound come together to create real impact.",
+  signature: "Video Editor / Motion Designer",
+  caption: ["Aryan Kumar", "Est. 2024"],
+  // Public-relative paths: replace these when your portraits are ready.
+  portraits: {
+    primary: { src: "/portrait.jpg", alt: "Portrait of Aryan Kumar" },
+    secondary: { src: "/portrait-2.jpg", alt: "Aryan behind the scenes" },
+  },
   stats: [
-    { value: 50, suffix: "+", label: "Projects" },
-    { value: 10, suffix: "M+", label: "Views Generated" },
-    { value: 2, suffix: "+", label: "Years Experience" },
+    { value: "2+", label: "Years Experience" },
+    { value: "50+", label: "Projects Completed" },
+    { value: "10M+", label: "Views Generated" },
   ],
+  skillsLabel: "Skills & Interests",
+  skills: ["Video Editing", "Motion Graphics", "Color Grading", "Sound Design", "Storytelling", "Short-form Content", "Brand Films", "Creative Direction"],
+  resume: { label: "Download Resume", href: "/resume.pdf" },
+} as const;
+
+export const showreel = {
+  id: "showreel",
+  label: "Showreel",
+  video: { src: "/videos/Built_Around_You_4K_Silent.mp4", poster: undefined },
 } as const;
 
 export const playerCopy = {
@@ -49,7 +64,7 @@ export const playerCopy = {
 } as const;
 
 export const contact = {
-  label: "04 — Contact",
+  label: "03 — Contact",
   eyebrow: "[ Let's work together ]",
   headline: ["Let's create", "something", "worth", "watching."],
   description: "Have a project in mind? A collaboration idea? Or just want to say hi? I'm always open to interesting conversations and creative opportunities.",

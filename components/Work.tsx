@@ -2,16 +2,21 @@
 
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, type Ref } from "react";
 import { AnimatePresence, m as motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
+import ShowreelPlayer, { type ShowreelHandle, type ShowreelSource } from "@/components/ShowreelPlayer";
+import { showreel } from "@/data/site";
 import ProjectCard from "@/components/ProjectCard";
 import dynamic from "next/dynamic";
 const VideoModal = dynamic(() => import("@/components/VideoModal"), { ssr: false });
 import { projects as defaultProjects, workContent, type Project } from "@/data/projects";
 import { DURATION, EASING, fadeUp } from "@/lib/motion";
 
-export default function Work({ projects = defaultProjects }: { projects?: Project[] }) {
+// Keep the showreel anchor stationary while the section reveals.
+const WORK_REVEAL = { ...fadeUp, hidden: { opacity: 0, y: 0 } };
+
+export default function Work({ projects = defaultProjects, showreelVideo = showreel.video, showreelRef }: { projects?: Project[]; showreelVideo?: ShowreelSource; showreelRef?: Ref<ShowreelHandle> }) {
   const [filter, setFilter] = useState<(typeof workContent.filters)[number]>("All");
   const [selected, setSelected] = useState<Project | null>(null);
   const trigger = useRef<HTMLButtonElement | null>(null);
@@ -20,8 +25,12 @@ export default function Work({ projects = defaultProjects }: { projects?: Projec
   const filtered = projects.filter(project => filter === "All" || project.tags.some(tag => tag === filter));
   const close = useCallback(() => setSelected(null), []);
   const move = (direction: number) => { if (!selected) return; const index = filtered.findIndex(project => project.id === selected.id); setSelected(filtered[(index + direction + filtered.length) % filtered.length]); };
-  return <motion.section variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} id="work" aria-labelledby="work-heading" className="scroll-mt-24 py-24">
+  return <motion.section variants={WORK_REVEAL} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} id="work" aria-labelledby="work-heading" className="py-24">
     <div className="content-shell">
+      <div className="mb-12">
+        <p className="mb-4 font-mono text-xs uppercase tracking-[0.15em] text-muted">{showreel.label}</p>
+        <ShowreelPlayer ref={showreelRef} {...showreelVideo} />
+      </div>
       <p className="mb-4 font-mono text-xs uppercase tracking-[0.15em] text-muted">{workContent.label}</p>
       <div className="mb-6 flex flex-col justify-between gap-8 border-b border-hairline pb-4 lg:flex-row lg:items-end">
         <div><h2 id="work-heading" className="text-4xl font-semibold tracking-heading sm:text-5xl">{workContent.title}</h2><p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">{workContent.subtitle}</p></div>
