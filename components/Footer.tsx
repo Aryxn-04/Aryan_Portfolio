@@ -3,7 +3,7 @@
 import { m as motion } from "motion/react";
 import { fadeUp } from "@/lib/motion";
 import { ArrowUp, Instagram, Linkedin } from "lucide-react";
-import { footer, hero, navigation } from "@/data/site";
+import { footer, navigation } from "@/data/site";
 import { REDUCED_MOTION_QUERY } from "@/lib/motion";
 
 const socialIcons = {
@@ -18,6 +18,6 @@ export default function Footer() {
       <nav aria-label="Footer navigation" className="flex flex-wrap gap-6 sm:gap-8">{navigation.map(link => <a key={link.href} href={link.href} className="font-mono text-xs uppercase text-muted  hover:text-text">{link.label}</a>)}</nav>
       <div className="flex items-center gap-6 min-[1100px]:border-l min-[1100px]:border-hairline min-[1100px]:pl-8">{footer.socials.map(social => { const Icon = socialIcons[social.name]; return <a key={social.name} href={social.href} aria-label={social.label} target="_blank" rel="noopener noreferrer" className="rounded-md p-2 text-muted  hover:text-text"><Icon size={20} aria-hidden="true" /></a>; })}{footer.comingSoonSocials.map(social => { const Icon = socialIcons[social.name]; return <span key={social.name} role="img" aria-label={social.label} title={social.label} className="rounded-md p-2 text-muted"><Icon /></span>; })}</div>
     </div>
-    <div className="border-t border-hairline"><div className="content-shell flex flex-col gap-4 py-6 text-xs sm:flex-row sm:items-center sm:justify-between"><p className="text-muted">© {new Date().getFullYear()} {footer.copyright}</p><a href={`#${hero.id}`} onClick={event => { event.preventDefault(); event.stopPropagation(); document.getElementById(hero.id)?.scrollIntoView({ behavior: window.matchMedia(REDUCED_MOTION_QUERY).matches ? "instant" : "smooth" }); }} className="inline-flex items-center gap-2 self-start">{footer.backToTop}<ArrowUp size={14} aria-hidden="true" /></a></div></div>
+    <div className="border-t border-hairline"><div className="content-shell flex flex-col gap-4 py-6 text-xs sm:flex-row sm:items-center sm:justify-between"><p className="text-muted">© {new Date().getFullYear()} {footer.copyright}</p><a href="#hero" onClick={event => { event.preventDefault(); document.getElementById("hero")?.scrollIntoView({ behavior: window.matchMedia(REDUCED_MOTION_QUERY).matches ? "instant" : "smooth" }); }} className="inline-flex items-center gap-2 self-start">{footer.backToTop}<ArrowUp size={14} aria-hidden="true" /></a></div></div>
   </motion.footer>;
 }
