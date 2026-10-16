@@ -51,7 +51,10 @@ export default function Nav() {
     if (target) { event.preventDefault(); event.stopPropagation(); setActive(anchor.hash); target.scrollIntoView({ behavior: reduced ? "instant" : "smooth" }); history.replaceState(null, "", anchor.hash); }
   }} initial={{ opacity: 0 }} animate={{ opacity: 1, y: hidden && !open ? "-100%" : 0 }} transition={reduced ? { duration: 0 } : undefined} className="sticky top-0 z-50 border-b border-hairline bg-[rgb(11_11_13/0.7)] backdrop-blur-xl">
     <nav aria-label="Main navigation" className="content-shell flex h-[80px] items-center justify-between gap-6">
-      <a href={`#${hero.id}`} aria-current={active === `#${hero.id}` ? "location" : undefined} className={`relative text-xs font-semibold tracking-[0.3em] ${active === `#${hero.id}` ? "after:absolute after:inset-x-0 after:-bottom-2 after:h-px after:bg-accent" : ""}`}>{hero.wordmark}</a>
+      <a href={`#${hero.id}`} aria-label={hero.wordmark} aria-current={active === `#${hero.id}` ? "location" : undefined} className="inline-flex shrink-0 items-center gap-4">
+        <span aria-hidden="true" className="nav-monogram flex items-center justify-center rounded-lg border border-hairline bg-surface-1 text-[11px] font-semibold">{hero.wordmarkMonogram}</span>
+        <span><span className="block text-xs font-semibold tracking-[0.3em]">{hero.wordmark}</span><span className="mt-1 hidden font-mono text-[9px] tracking-[0.15em] text-muted min-[900px]:block">{hero.wordmarkSubtitle}</span></span>
+      </a>
       <div className="hidden items-center gap-10 min-[900px]:flex">{navigation.map(link => <a key={link.href} href={link.href} aria-current={active === link.href ? "location" : undefined} className={`relative py-2 text-sm hover:text-text ${active === link.href ? "text-text after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-accent" : "text-muted"}`}>{link.label}</a>)}</div>
       <a href="#contact" className="hidden rounded-full bg-accent-action px-6 py-2 text-sm min-[900px]:block">{hero.talk}</a>
       <button ref={menu} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)} className="p-2 min-[900px]:hidden">{open ? <X /> : <Menu />}</button>
