@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { validateContact } from "@/data/site";
+import { contact, validateContact } from "@/data/site";
 
 export const runtime = "nodejs";
 const HOUR = 60 * 60 * 1000;
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
   const message = (payload.message as string).trim();
   const emailPayload = {
     from: process.env.CONTACT_FROM_EMAIL || "Portfolio <onboarding@resend.dev>",
-    to: [process.env.CONTACT_TO_EMAIL || "hello@example.com"],
+    to: [process.env.CONTACT_TO_EMAIL || contact.email],
     reply_to: email,
     subject: `Portfolio inquiry: ${payload.projectType}`,
     text: `Name: ${name}\nEmail: ${email}\nProject type: ${payload.projectType}\n\n${message}`,
