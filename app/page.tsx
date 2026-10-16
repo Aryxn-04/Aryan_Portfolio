@@ -4,7 +4,6 @@ import { projects } from "@/data/projects";
 import { hero } from "@/data/site";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import About from "@/components/About";
 import Toolkit from "@/components/Toolkit";
 import Nav from "@/components/Nav";
 import Work from "@/components/Work";
@@ -21,5 +20,5 @@ export default function Home() {
     const preview = candidates.map(name => `/videos/previews/${name}.mp4`).find(exists);
     return { ...project, poster: poster || project.poster, previewSrc: preview || project.previewSrc };
   });
-  return <><Nav /><main tabIndex={-1} id="main-content" aria-label={site.mainLabel}><Hero video={video} /><Work projects={availableProjects} /><Toolkit /><About portraits={{ primary: exists("/portrait.jpg"), secondary: exists("/portrait-2.jpg") }} /><Contact /></main><Footer /></>;
+  return <><Nav /><main tabIndex={-1} id="main-content" aria-label={site.mainLabel}><Hero video={video} portraitAvailable={exists(hero.portrait.src)} /><Work projects={availableProjects} /><Toolkit /><Contact /></main><Footer /></>;
 }

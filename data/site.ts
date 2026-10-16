@@ -10,7 +10,6 @@ export const sectionOrder = [
   "Hero",
   "Work",
   "Toolkit",
-  "About",
   "Contact",
   "Footer",
 ] as const;
@@ -18,15 +17,20 @@ export const sectionOrder = [
 export const navigation = [
   { label: "Work", href: "#work" },
   { label: "Toolkit", href: "#toolkit" },
-  { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ] as const;
 
 export const hero = {
+  id: "home",
+  portrait: { src: "/portrait.jpg", alt: "Portrait of Aryan Kumar", initials: "AK" },
+  intro: { name: "Hi, I'm Aryan Kumar", role: "Video editor & motion designer" },
+  specialtiesLabel: "Specializes in",
+  specialties: ["YouTube", "Short-form", "Brand films", "Motion graphics"],
+  resume: { label: "Download Resume ↓", href: "/resume.pdf" },
   wordmark: "ARYAN KUMAR",
   availability: "Available for freelance, October 2026",
   headline: ["I turn raw footage into", "stories people remember."],
-  description: "Video editor specializing in YouTube, short-form, brand films, and motion graphics.",
+  description: "I edit YouTube videos, short-form content and brand films, with motion graphics, color and sound shaping every final cut. Over 2 years and 50+ projects, my work has reached more than 10M views.",
   work: "View My Work",
   watch: "Watch Showreel",
   talk: "Let's Talk",
@@ -49,7 +53,7 @@ export const playerCopy = {
 } as const;
 
 export const contact = {
-  label: "04 — Contact",
+  label: "03 — Contact",
   eyebrow: "[ Let's work together ]",
   headline: ["Let's create", "something", "worth", "watching."],
   description: "Have a project in mind? A collaboration idea? Or just want to say hi? I'm always open to interesting conversations and creative opportunities.",
