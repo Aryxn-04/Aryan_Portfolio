@@ -60,7 +60,7 @@ export default forwardRef<ShowreelHandle, Props>(function ShowreelPlayer({ src, 
     else setVisible(true);
     return () => clearTimeout(timer.current);
   }, [playing]);
-  return <div id="showreel" ref={container} role="region" aria-label={copy.title} tabIndex={0} onPointerMove={wake} onFocusCapture={wake} onKeyDown={event => {
+  return <div data-cursor="play" id="showreel" ref={container} role="region" aria-label={copy.title} tabIndex={0} onPointerMove={wake} onFocusCapture={wake} onKeyDown={event => {
     if ((event.target as HTMLElement).tagName === "INPUT") return;
     if ((event.target as HTMLElement).tagName === "BUTTON" && event.key === " ") return;
     const key = event.key.toLowerCase();

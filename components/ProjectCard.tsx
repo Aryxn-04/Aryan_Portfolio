@@ -27,7 +27,7 @@ const ProjectCard = forwardRef<HTMLDivElement, Props>(function ProjectCard({ pro
     }
   }, [loaded]);
   return <motion.div ref={ref} exit={{ opacity: 0, scale: reduced ? 1 : 0.96 }} transition={{ duration: reduced ? 0 : DURATION.ui, ease: EASING }} className={`min-w-0 ${className ?? ""}`}>
-    <button type="button" onClick={event => { stop(); onOpen(project, event.currentTarget); }}
+    <button data-cursor="play" type="button" onClick={event => { stop(); onOpen(project, event.currentTarget); }}
       onPointerEnter={event => { if (event.pointerType !== "mouse" || reduced || !project.previewSrc || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return; hovered.current = true; setLoaded(true); play(); }}
       onPointerLeave={stop} onBlur={stop}
       aria-label={`Watch ${project.title}`} aria-haspopup="dialog" className="group block h-full w-full overflow-hidden rounded-md border border-hairline bg-surface-1 text-left">
