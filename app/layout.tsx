@@ -3,6 +3,7 @@ import path from "node:path";
 import { DURATION, EASING } from "@/lib/motion";
 import type { Metadata, Viewport } from "next";
 import { Caveat, Inter, JetBrains_Mono } from "next/font/google";
+import CursorGlow from "@/components/CursorGlow";
 import ScrollProgress from "@/components/ScrollProgress";
 import SmoothScroll from "@/components/SmoothScroll";
 import { contact, footer, personSchema, site } from "@/data/site";
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body style={{ "--motion-ui": `${DURATION.ui}s`, "--motion-reveal": `${DURATION.reveal}s`, "--motion-drift": `${DURATION.drift}s`, "--motion-ease": `cubic-bezier(${EASING.join(",")})` } as React.CSSProperties}>
         <a href="#main-content" className="fixed left-6 top-4 z-[120] -translate-y-32 rounded-md bg-text px-6 py-4 text-bg focus:translate-y-0">Skip to content</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema).replace(/</g, "\\u003c") }} />
+        <CursorGlow />
         <SmoothScroll><ScrollProgress />{children}</SmoothScroll>
       </body>
     </html>

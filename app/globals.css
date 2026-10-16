@@ -117,3 +117,27 @@
   main > section, footer, header { opacity: 1 !important; transform: none !important; }
   #contact > .content-shell { opacity: 1 !important; transform: none !important; }
 }
+
+/* Cursor geometry/colors are configured by CursorGlow's named tuning constants. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html.cursor-glow-active, html.cursor-glow-active * { cursor: none !important; }
+  html.cursor-glow-ready :is(input, textarea, select, [contenteditable]:not([contenteditable="false"])) { cursor: text !important; }
+}
+.cursor-glow, .cursor-glow * { pointer-events: none !important; }
+.cursor-glow { position: fixed; inset: 0; opacity: 0; overflow: hidden; }
+.cursor-glow-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cursor-glow-dot, .cursor-glow-position, .cursor-glow-pulse { position: absolute; top: 0; left: 0; }
+.cursor-glow-dot { width: var(--cursor-dot); height: var(--cursor-dot); border-radius: 50%; background: var(--cursor-core); box-shadow: 0 0 var(--cursor-dot) var(--cursor-accent); transition: opacity var(--cursor-duration) var(--cursor-ease); }
+.cursor-glow-position { width: var(--cursor-halo); height: var(--cursor-halo); }
+.cursor-glow-halo { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle, var(--cursor-halo-color), transparent 70%); border: 1px solid var(--cursor-ring-color); opacity: var(--cursor-opacity); transition: transform var(--cursor-duration) var(--cursor-ease), opacity var(--cursor-duration) var(--cursor-ease); }
+.cursor-glow-halo::after { content: ""; position: absolute; width: var(--cursor-outer); height: var(--cursor-outer); left: 50%; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, var(--cursor-outer-color), transparent 70%); }
+.cursor-glow[data-mode="hover"] .cursor-glow-halo { transform: scale(var(--cursor-hover)); opacity: var(--cursor-hover-opacity); }
+.cursor-glow[data-mode="play"] .cursor-glow-halo { transform: scale(var(--cursor-play)); opacity: var(--cursor-hover-opacity); }
+.cursor-glow-play { position: absolute; inset: 0; display: grid; place-items: center; opacity: 0; transition: opacity var(--cursor-duration) var(--cursor-ease); }
+.cursor-glow-play::after { content: ""; width: var(--cursor-triangle); height: var(--cursor-triangle); background: var(--cursor-core); clip-path: polygon(20% 0, 100% 50%, 20% 100%); }
+.cursor-glow[data-mode="play"] .cursor-glow-play { opacity: 1; }
+.cursor-glow[data-mode="play"] .cursor-glow-dot { opacity: 0; }
+.cursor-glow-pulse { width: var(--cursor-pulse); height: var(--cursor-pulse); border: 1px solid var(--cursor-accent); border-radius: 50%; opacity: 0; }
+@media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  .cursor-glow { display: none; }
+}
