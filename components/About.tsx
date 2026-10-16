@@ -35,14 +35,14 @@ export default function About() {
                     {SPROCKETS.map((hole) => <span key={hole} className="h-4 w-full rounded-[3px] border border-hairline bg-bg" />)}
                   </div>
                 ))}
-                <div className="relative aspect-[3/4] overflow-hidden bg-gradient-to-br from-surface-2 via-bg to-accent/20">
+                <div className="relative aspect-[3/4] overflow-hidden bg-gradient-to-br from-surface-2 via-bg to-[color-mix(in_srgb,var(--accent)_20%,transparent)]">
                   {!missing.primary && <Image src={about.portraits.primary.src} alt={about.portraits.primary.alt} fill sizes="(min-width: 1024px) 440px, 80vw" className="object-cover" onError={() => setMissing((value) => ({ ...value, primary: true }))} />}
                   <span aria-hidden="true" className="absolute right-4 top-8 max-w-[7rem] -rotate-6 font-handwriting text-3xl leading-tight text-muted">{about.signature}</span>
                 </div>
               </div>
               <div className="absolute -right-2 bottom-0 w-[46%] translate-y-1/3 rotate-[-8deg] border border-hairline bg-surface-1 p-4 shadow-2xl">
-                <span aria-hidden="true" className="absolute -top-2 left-1/4 z-10 h-6 w-3/4 rotate-6 border border-text/10 bg-text/10" />
-                <div className="relative aspect-square overflow-hidden bg-gradient-to-tr from-bg via-surface-2 to-accent/20">
+                <span aria-hidden="true" className="absolute -top-2 left-1/4 z-10 h-6 w-3/4 rotate-6 border border-hairline bg-[color-mix(in_srgb,var(--text)_12%,transparent)]" />
+                <div className="relative aspect-square overflow-hidden bg-gradient-to-tr from-bg via-surface-2 to-[color-mix(in_srgb,var(--accent)_20%,transparent)]">
                   {!missing.secondary && <Image src={about.portraits.secondary.src} alt={about.portraits.secondary.alt} fill sizes="220px" className="object-cover grayscale" onError={() => setMissing((value) => ({ ...value, secondary: true }))} />}
                 </div>
               </div>
@@ -59,9 +59,9 @@ export default function About() {
             </dl>
             <h3 className="mb-4 font-mono text-xs uppercase tracking-wide text-muted">{about.skillsLabel}</h3>
             <ul className="flex flex-wrap gap-2">
-              {about.skills.map((skill) => <li key={skill} className="rounded-md border border-text/20 bg-gradient-to-b from-surface-1 to-bg px-4 py-2 text-xs transition-colors duration-[400ms] hover:border-accent motion-reduce:transition-none sm:text-sm">{skill}</li>)}
+              {about.skills.map((skill) => <li key={skill} className="rounded-md border border-[color-mix(in_srgb,var(--text)_20%,transparent)] bg-gradient-to-b from-surface-1 to-bg px-4 py-2 text-xs transition-colors duration-[400ms] hover:border-accent motion-reduce:transition-none sm:text-sm">{skill}</li>)}
             </ul>
-            <a href={about.resume.href} download className="mt-8 inline-flex min-h-12 items-center gap-6 rounded-md border border-text/40 px-6 py-4 text-sm font-medium transition-colors duration-[400ms] hover:border-accent hover:bg-surface-1 motion-reduce:transition-none">
+            <a href={about.resume.href} download className="mt-8 inline-flex min-h-12 items-center gap-6 rounded-md border border-[color-mix(in_srgb,var(--text)_40%,transparent)] px-6 py-4 text-sm font-medium transition-colors duration-[400ms] hover:border-accent hover:bg-surface-1 motion-reduce:transition-none">
               <Download aria-hidden="true" className="h-6 w-6 text-accent" />{about.resume.label}<ArrowUpRight aria-hidden="true" className="h-6 w-6" />
             </a>
           </motion.div>
