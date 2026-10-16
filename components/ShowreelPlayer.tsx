@@ -13,8 +13,8 @@ const timecode = (time: number) => {
   return [Math.floor(safe / 3600), Math.floor(safe / 60) % 60, Math.floor(safe) % 60, Math.floor((safe % 1) * FPS)].map(n => String(n).padStart(2, "0")).join(":");
 };
 export type ShowreelHandle = { play: () => void };
-type Props = { src: string; poster?: string; webm?: string };
-export default forwardRef<ShowreelHandle, Props>(function ShowreelPlayer({ src, poster, webm }, ref) {
+export type ShowreelSource = { src: string; poster?: string; webm?: string };
+export default forwardRef<ShowreelHandle, ShowreelSource>(function ShowreelPlayer({ src, poster, webm }, ref) {
   const video = useRef<HTMLVideoElement>(null);
   const container = useRef<HTMLDivElement>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -69,7 +69,7 @@ export default forwardRef<ShowreelHandle, Props>(function ShowreelPlayer({ src, 
     if (key === "m" && video.current) video.current.muted = !video.current.muted;
     if (key === "f") fullscreen();
     if ((key === "arrowleft" || key === "arrowright") && video.current) video.current.currentTime = Math.max(0, Math.min(duration, video.current.currentTime + (key === "arrowleft" ? -SEEK_SECONDS : SEEK_SECONDS)));
-  }} className="relative isolate aspect-[3/2] w-full scroll-mt-24 overflow-hidden rounded-lg border border-hairline hover:border-accent/60 hover:shadow-[0_0_0_1px_rgba(99,102,241,0.15)] bg-[radial-gradient(ellipse_at_60%_20%,#27283f_0%,#141416_45%,#0b0b0d_100%)] shadow-2xl fullscreen:aspect-auto">
+  }} className="relative isolate aspect-video w-full overflow-hidden rounded-lg border border-hairline hover:border-accent/60 hover:shadow-[0_0_0_1px_rgba(99,102,241,0.15)] bg-[radial-gradient(ellipse_at_60%_20%,#27283f_0%,#141416_45%,#0b0b0d_100%)] shadow-2xl fullscreen:aspect-auto">
     <video ref={video} className={`h-full w-full object-contain ${!started && !poster ? "opacity-0" : "opacity-100"}`} preload="metadata" poster={poster} playsInline onLoadedMetadata={() => { setDuration(video.current?.duration || 0); setLoading(false); }} onCanPlay={() => setLoading(false)} onWaiting={() => { if (!video.current?.paused) setLoading(true); }} onSeeked={() => setLoading(false)} onPlaying={() => { setLoading(false); setStarted(true); }} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} onTimeUpdate={() => setCurrent(video.current?.currentTime || 0)} onVolumeChange={() => setMuted(video.current?.muted || false)} onError={() => { setError(true); setLoading(false); }}>
       {ready && webm && <source src={webm} type="video/webm" />}{ready && <source src={src} type="video/mp4" onError={() => { setError(true); setLoading(false); }} />}
     </video>
