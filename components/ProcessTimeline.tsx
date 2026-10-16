@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type RefObject } from "react";
+import { useRef, useState, useSyncExternalStore, type RefObject } from "react";
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { processContent, processSteps } from "@/data/process";
 
@@ -12,8 +12,14 @@ const TIMELINE = {
   offsets: ["start end", "end end"],
 } as const;
 
+const subscribeToHydration = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
+
 export default function ProcessTimeline({ sectionRef }: { sectionRef: RefObject<HTMLElement | null> }) {
-  const reduced = useReducedMotion();
+  const prefersReduced = useReducedMotion();
+  const hydrated = useSyncExternalStore(subscribeToHydration, clientSnapshot, serverSnapshot);
+  const reduced = hydrated && prefersReduced;
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: [...TIMELINE.offsets] });
   const travel = useTransform(scrollYProgress, [0, 1], ["0%", "99.8%"]);
   const [active, setActive] = useState(-1);

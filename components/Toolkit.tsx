@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import ProcessTimeline from "@/components/ProcessTimeline";
 import { toolkitContent, tools } from "@/data/tools";
@@ -8,9 +8,15 @@ import { DURATION, EASING, fadeUp, stagger } from "@/lib/motion";
 
 const HOVER_LIFT = -4;
 
+const subscribeToHydration = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
+
 export default function Toolkit() {
   const section = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
+  const prefersReduced = useReducedMotion();
+  const hydrated = useSyncExternalStore(subscribeToHydration, clientSnapshot, serverSnapshot);
+  const reduced = hydrated && prefersReduced;
 
   return (
     <section ref={section} id="toolkit" aria-labelledby="toolkit-heading" className="scroll-mt-24 overflow-hidden py-24">
