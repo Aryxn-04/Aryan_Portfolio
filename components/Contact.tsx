@@ -4,7 +4,7 @@ import { useReducedMotion } from "@/lib/useReducedMotion";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { m as motion } from "motion/react";
-import { ArrowRight, ArrowUpRight, Check, Copy, LoaderCircle, Mail } from "lucide-react";
+import { ArrowRight, Check, Copy, LoaderCircle, Mail } from "lucide-react";
 import { contact, contactLimits, validateContact, type ContactField } from "@/data/site";
 import { fadeUp } from "@/lib/motion";
 
@@ -60,11 +60,10 @@ export default function Contact() {
           <p className="mt-8 max-w-xl text-sm leading-relaxed text-muted sm:text-base">{contact.description}</p>
           <div className="mt-8 flex items-center gap-4 rounded-md border border-hairline bg-surface-1/40 px-4 py-4 sm:px-6">
             <Mail aria-hidden="true" className="hidden shrink-0 sm:block" size={24} />
-            <a href={`mailto:${contact.email}`} className="min-w-0 flex-1 break-all text-lg font-semibold tracking-heading sm:text-2xl">{contact.email}</a>
+            <a href={`mailto:${contact.email}`} target="_blank" rel="noopener noreferrer" aria-label={contact.emailLabel} className="min-w-0 flex-1 break-all text-lg font-semibold tracking-heading sm:text-2xl">{contact.email}</a>
             <button type="button" onClick={copyEmail} aria-label={contact.copy} className="shrink-0 rounded-md p-2 text-muted  hover:text-text">{copyStatus === contact.copied ? <Check size={20} /> : <Copy size={20} />}</button>
           </div>
           <p role="status" className="mt-2 min-h-6 text-xs text-muted">{copyStatus}</p>
-          <a href={contact.bookingUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-4 rounded-md border border-hairline px-6 py-4 text-sm hover:border-accent hover:text-accent">{contact.callLabel}<ArrowUpRight size={18} aria-hidden="true" /></a>
           <p className="mt-6 flex flex-wrap items-center gap-2 text-xs sm:text-sm"><span aria-hidden="true" className="h-2 w-2 rounded-full bg-[#00dd88]" />{contact.availability}<span className="text-muted">· {contact.availabilityDate}</span></p>
         </div>
         <form onSubmit={submit} noValidate className="rounded-lg border border-hairline bg-surface-1/60 p-6 shadow-2xl backdrop-blur-xl sm:p-8" aria-label={contact.formTitle} aria-busy={status === "loading"}>

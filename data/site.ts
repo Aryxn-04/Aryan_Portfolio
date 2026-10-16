@@ -48,15 +48,13 @@ export const playerCopy = {
   fullscreen: "Toggle fullscreen", seek: "Seek showreel",
 } as const;
 
-// Replace these placeholder destinations before publishing.
 export const contact = {
   label: "04 — Contact",
   eyebrow: "[ Let's work together ]",
   headline: ["Let's create", "something", "worth", "watching."],
   description: "Have a project in mind? A collaboration idea? Or just want to say hi? I'm always open to interesting conversations and creative opportunities.",
-  email: "hello@example.com",
-  bookingUrl: "https://example.com/book-a-call",
-  callLabel: "Schedule a Call",
+  email: "hello.aryandesigns@gmail.com",
+  emailLabel: "Email Aryan",
   availability: "Available for freelance",
   availabilityDate: "October 2026",
   formTitle: "Send a message",
@@ -86,10 +84,19 @@ export const footer = {
   tagline: "Video Editor & Motion Designer", motto: "Ideas → Stories → Impact",
   copyright: "Aryan Kumar. All rights reserved.", backToTop: "Back to top",
   socials: [
-    { name: "Instagram", href: "https://www.instagram.com/your-handle" },
-    { name: "LinkedIn", href: "https://www.linkedin.com/in/your-handle" },
-    { name: "YouTube", href: "https://www.youtube.com/@your-handle" },
-    { name: "Behance", href: "https://www.behance.net/your-handle" },
-    { name: "X", href: "https://x.com/your-handle" },
+    { name: "Instagram", href: "https://www.instagram.com/arcxverse/", label: "Aryan on Instagram" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/onlyaryan/", label: "Aryan on LinkedIn" },
+    { name: "Behance", href: "https://www.behance.net/aryandesigns2", label: "Aryan on Behance" },
   ],
+  comingSoonSocials: [{ name: "X", label: "X (Twitter) — Coming soon" }],
+} as const;
+
+export const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  url: site.url,
+  jobTitle: "Video Editor & Motion Designer",
+  email: contact.email,
+  sameAs: footer.socials.map(social => social.href),
 } as const;
