@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 :root {
+  --hero-portrait-radius: 12px;
+  --hero-portrait-tint: 0.06;
+  --hero-portrait-inner-border: rgb(255 255 255 / 0.1);
+  --hero-portrait-fade-height: 22%;
+  --hero-card-angle: 4deg;
+  --hero-card-lift: -4px;
   --nav-logo-size: 32px;
   --nav-logo-glow-size: 8px;
   --nav-logo-glow-alpha: 0.40;
@@ -184,3 +190,13 @@ main > section, footer { background: transparent; }
 .nav-logo-shape { position: absolute; inset: 0; fill: currentColor; background: currentColor; mask-image: var(--nav-logo-mask, none); mask-size: contain; mask-position: center; mask-repeat: no-repeat; }
 .nav-logo-aura { position: absolute; inset: 0; filter: drop-shadow(0 0 var(--nav-logo-glow-size) rgb(var(--accent-rgb) / var(--nav-logo-glow-alpha))); opacity: var(--nav-logo-idle-opacity); transition: opacity var(--motion-ui) var(--motion-ease); }
 a:hover .nav-logo-aura { opacity: var(--nav-logo-hover-opacity); }
+
+/* Preserve the portrait's original exposure; only the shirt receives the fade. */
+.hero-portrait-window { border-radius: var(--hero-portrait-radius); }
+.hero-portrait-tint { opacity: var(--hero-portrait-tint); }
+.hero-portrait-fade { height: var(--hero-portrait-fade-height); }
+.hero-portrait-border { border-color: var(--hero-portrait-inner-border); }
+.hero-monogram-card { transform: rotate(var(--hero-card-angle)); transition: transform var(--motion-ui) var(--motion-ease); }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hero-monogram-card:hover { transform: translateY(var(--hero-card-lift)) rotate(var(--hero-card-angle)); }
+}
