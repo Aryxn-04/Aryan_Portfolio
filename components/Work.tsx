@@ -29,7 +29,7 @@ export default function Work({ projects = defaultProjects, showreelVideo = showr
     <div className="content-shell">
       <div className="mb-12">
         <p className="mb-4 font-mono text-xs uppercase tracking-[0.15em] text-muted">{showreel.label}</p>
-        <ShowreelPlayer ref={showreelRef} {...showreelVideo} />
+        <ShowreelPlayer ref={showreelRef} {...showreelVideo} poster={showreelVideo.poster ?? showreel.video.poster} />
       </div>
       <p className="mb-4 font-mono text-xs uppercase tracking-[0.15em] text-muted">{workContent.label}</p>
       <div className="mb-6 flex flex-col justify-between gap-8 border-b border-hairline pb-4 lg:flex-row lg:items-end">

@@ -53,11 +53,12 @@ export const hero = {
 export const showreel = {
   id: "showreel",
   label: "Showreel",
-  video: { src: "/videos/Built_Around_You_4K_Silent.mp4", poster: undefined },
+  video: { src: "/videos/Built_Around_You_4K_Silent.mp4", poster: "/posters/showreel.jpg" },
 } as const;
 
 export const playerCopy = {
   title: "Aryan Kumar showreel",
+  posterAlt: "Aryan Kumar — video editor and motion designer showreel",
   loading: "Loading showreel…",
   error: "The showreel couldn't load. Please try again.",
   retry: "Try again",
