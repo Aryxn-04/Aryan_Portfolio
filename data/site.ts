@@ -35,10 +35,11 @@ export const hero = {
   bio: "I’m a video editor and motion designer with a passion for crafting engaging visual stories — from short-form content to brand films. I enjoy the entire process, from raw footage to the final frame, where editing, motion and sound come together to create real impact.",
   signature: "Video Editor / Motion Designer",
   caption: ["Aryan Kumar", "Est. 2024"],
-  // Public-relative paths: replace these when your portraits are ready.
+  portraitInitials: "AK",
+  // Public-relative paths and configurable image crop positions.
   portraits: {
-    primary: { src: "/portrait.jpg", alt: "Portrait of Aryan Kumar" },
-    secondary: { src: "/portrait-2.jpg", alt: "Aryan behind the scenes" },
+    primary: { src: "/portrait.jpg", alt: "Black and white portrait of Aryan Kumar, video editor and motion designer", position: "50% 30%" },
+    secondary: { src: "/logo-card.jpg", alt: "Aryan Kumar monogram", position: "50% 50%" },
   },
   stats: [
     { value: "2+", label: "Years Experience" },

@@ -3,7 +3,7 @@
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ArrowRight, Play } from "lucide-react";
 import { m as motion, useScroll, useTransform } from "motion/react";
 import { hero } from "@/data/site";
@@ -17,7 +17,8 @@ export default function Hero({ portraits = { primary: false, secondary: false },
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: section, offset: ["start end", "end start"] });
   const portraitY = useTransform(scrollYProgress, [0, 1], [PARALLAX_DISTANCE, -PARALLAX_DISTANCE]);
-  const missing = { primary: !portraits.primary, secondary: !portraits.secondary };
+  const [failed, setFailed] = useState({ primary: false, secondary: false });
+  const missing = { primary: !portraits.primary || failed.primary, secondary: !portraits.secondary || failed.secondary };
 
   return (
     <motion.section ref={section} id={hero.id} aria-labelledby="home-heading" variants={fadeUp} initial={reduced ? false : "hidden"} animate="visible" className="relative flex min-h-[calc(100svh-var(--nav-height))] items-center py-8 lg:py-0">
@@ -45,6 +46,7 @@ export default function Hero({ portraits = { primary: false, secondary: false },
             </ul>
           </div>
           <motion.div style={{ y: reduced ? 0 : portraitY }} className="order-2 relative mx-auto w-full max-w-[400px] pb-16 pr-6 lg:order-1">
+            <span aria-hidden="true" className="absolute -top-12 left-0 max-w-full -rotate-6 font-handwriting text-2xl leading-tight text-muted">{hero.signature}</span>
             <div className="relative">
               <div className="relative -rotate-2 border border-hairline bg-surface-1 px-8 py-4 shadow-2xl">
                 {["left-2", "right-2"].map((edge) => (
@@ -52,17 +54,23 @@ export default function Hero({ portraits = { primary: false, secondary: false },
                     {SPROCKETS.map((hole) => <span key={hole} className="h-4 w-full rounded-[3px] border border-hairline bg-bg" />)}
                   </div>
                 ))}
-                <div className="relative aspect-[3/4] overflow-hidden bg-gradient-to-br from-surface-2 via-bg to-[color-mix(in_srgb,var(--accent)_20%,transparent)]">
-                  {!missing.primary && <Image src={hero.portraits.primary.src} alt={hero.portraits.primary.alt} fill sizes="(min-width: 640px) 312px, calc(100vw - 136px)" priority className="object-cover" />}
-                  <span aria-hidden="true" className="absolute right-4 top-8 max-w-[7rem] -rotate-6 font-handwriting text-3xl leading-tight text-muted">{hero.signature}</span>
+                <div className="hero-portrait-window relative isolate aspect-[4/5] overflow-hidden bg-gradient-to-br from-surface-2 via-bg to-[color-mix(in_srgb,var(--accent)_20%,transparent)] shadow-2xl">
+                  {missing.primary ? <span className="absolute inset-0 flex items-center justify-center text-4xl font-semibold text-muted">{hero.portraitInitials}</span> : <>
+                    <Image src={hero.portraits.primary.src} alt={hero.portraits.primary.alt} fill sizes="(min-width: 1024px) 480px, 90vw" priority className="object-cover" style={{ objectPosition: hero.portraits.primary.position }} onError={() => setFailed(value => ({ ...value, primary: true }))} />
+                    <span aria-hidden="true" className="hero-portrait-tint pointer-events-none absolute inset-0 bg-accent mix-blend-soft-light" />
+                    <span aria-hidden="true" className="hero-portrait-fade pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg to-transparent" />
+                  </>}
+                  <span aria-hidden="true" className="hero-portrait-border pointer-events-none absolute inset-0 rounded-[inherit] border" />
                 </div>
               </div>
-              <div className="absolute -right-2 bottom-0 w-[46%] translate-y-1/3 rotate-[-8deg] border border-hairline bg-surface-1 p-4 shadow-2xl">
-                <span aria-hidden="true" className="absolute -top-2 left-1/4 z-10 h-6 w-3/4 rotate-6 border border-hairline bg-[color-mix(in_srgb,var(--text)_12%,transparent)]" />
-                <div className="relative aspect-square overflow-hidden bg-gradient-to-tr from-bg via-surface-2 to-[color-mix(in_srgb,var(--accent)_20%,transparent)]">
-                  {!missing.secondary && <Image src={hero.portraits.secondary.src} alt={hero.portraits.secondary.alt} fill sizes="(min-width: 640px) 141px, 35vw" className="object-cover grayscale" />}
+              {!missing.secondary && <div className="absolute -right-2 bottom-0 w-[46%] translate-y-1/3">
+                <div className="hero-monogram-card relative border border-hairline bg-surface-1 p-4 shadow-2xl">
+                  <span aria-hidden="true" className="absolute -top-2 left-1/4 z-10 h-6 w-3/4 rotate-6 border border-hairline bg-[color-mix(in_srgb,var(--text)_12%,transparent)]" />
+                  <div className="relative aspect-square overflow-hidden">
+                    <Image src={hero.portraits.secondary.src} alt={hero.portraits.secondary.alt} fill sizes="(min-width: 1024px) 141px, (min-width: 448px) 141px, 35vw" className="object-cover" style={{ objectPosition: hero.portraits.secondary.position }} onError={() => setFailed(value => ({ ...value, secondary: true }))} />
+                  </div>
                 </div>
-              </div>
+              </div>}
             </div>
             <p className="absolute bottom-0 left-6 font-mono text-xs uppercase leading-relaxed tracking-wide text-muted">{hero.caption.map((line) => <span key={line} className="block">{line}</span>)}</p>
           </motion.div>
