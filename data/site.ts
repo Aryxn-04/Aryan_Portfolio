@@ -54,7 +54,7 @@ export const hero = {
 export const showreel = {
   id: "showreel",
   label: "Showreel",
-  video: { src: "/videos/Built_Around_You_4K_Silent.mp4", poster: "/posters/showreel.jpg" },
+  video: { src: "/videos/Showreel-New.mp4", poster: "/posters/showreel.jpg" },
 } as const;
 
 export const playerCopy = {
