@@ -2,15 +2,17 @@
 
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { m as motion } from "motion/react";
 import { ArrowUpRight, Play } from "lucide-react";
 import type { Project } from "@/data/projects";
-import { DURATION, EASING } from "@/lib/motion";
+import { fadeUp } from "@/lib/motion";
+
+const STATIC_REVEAL = { hidden: { opacity: 1, y: 0 }, visible: { opacity: 1, y: 0, transition: { duration: 0 } } };
 
 interface Props { project: Project; className?: string; onOpen: (project: Project, trigger: HTMLButtonElement) => void }
-const ProjectCard = forwardRef<HTMLDivElement, Props>(function ProjectCard({ project, className, onOpen }, ref) {
+export default function ProjectCard({ project, className, onOpen }: Props) {
   const reduced = useReducedMotion();
   const video = useRef<HTMLVideoElement>(null);
   const hovered = useRef(false);
@@ -26,7 +28,7 @@ const ProjectCard = forwardRef<HTMLDivElement, Props>(function ProjectCard({ pro
       void video.current.play().then(() => { if (hovered.current) setPlaying(true); else video.current?.pause(); }).catch(() => setPlaying(false));
     }
   }, [loaded]);
-  return <motion.div ref={ref} exit={{ opacity: 0, scale: reduced ? 1 : 0.96 }} transition={{ duration: reduced ? 0 : DURATION.ui, ease: EASING }} className={`min-w-0 ${className ?? ""}`}>
+  return <motion.div variants={reduced ? STATIC_REVEAL : fadeUp} className={`min-w-0 ${className ?? ""}`}>
     <button data-cursor="play" type="button" onClick={event => { stop(); onOpen(project, event.currentTarget); }}
       onPointerEnter={event => { if (event.pointerType !== "mouse" || reduced || !project.previewSrc || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return; hovered.current = true; setLoaded(true); play(); }}
       onPointerLeave={stop} onBlur={stop}
@@ -45,5 +47,4 @@ const ProjectCard = forwardRef<HTMLDivElement, Props>(function ProjectCard({ pro
       </span>
     </button>
   </motion.div>;
-});
-export default ProjectCard;
+}
