@@ -31,7 +31,7 @@ export default function Work({ projects = defaultProjects, showreelVideo = showr
         <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">{workContent.subtitle}</p>
       </div>
       <motion.div variants={stagger} initial={reduced ? false : "hidden"} whileInView="visible" viewport={{ once: true, amount: 0.1 }} className="grid grid-cols-1 gap-6 md:grid-cols-12">
-        {projects.map((project, index) => <ProjectCard key={project.id} project={project} className={index > 2 ? "md:col-span-4" : index === 0 ? "md:col-span-6" : "md:col-span-3"} onOpen={(project, button) => { trigger.current = button; setSelected(project); }} />)}
+        {projects.map((project, index) => <ProjectCard key={project.id} project={project} className={index > 4 ? "md:col-span-4" : index === 0 || index > 2 ? "md:col-span-6" : "md:col-span-3"} onOpen={(project, button) => { trigger.current = button; setSelected(project); }} />)}
       </motion.div>
       <div className="mt-8 text-center"><a href="#contact" className="inline-flex items-center gap-4 rounded-full border border-text/20 px-8 py-4 text-sm hover:border-accent hover:text-accent motion-reduce:transition-none">{workContent.viewAll}<ArrowRight size={18} /></a></div>
     </div>

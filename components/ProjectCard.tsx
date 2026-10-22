@@ -37,12 +37,12 @@ export default function ProjectCard({ project, className, onOpen }: Props) {
         <span className="absolute inset-0 flex items-end justify-start p-4 text-left transition-transform duration-ui motion-safe:group-hover:scale-105 motion-reduce:transition-none" style={{ background: project.gradient }}>
           {project.poster ? <Image src={project.poster} alt={project.title} fill sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1247px) 50vw, 600px" className="object-cover" /> : <span className="max-w-xs text-sm font-semibold lg:text-lg leading-tight tracking-heading text-text/80">{project.title}</span>}
         </span>
-        {loaded && project.previewSrc && <video ref={video} src={project.previewSrc} muted loop playsInline preload="metadata" onLoadedData={play} onError={stop} aria-hidden="true" tabIndex={-1} className={`pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-ui ${playing ? "opacity-100" : "opacity-0"}`} />}
+        {loaded && project.previewSrc && <video ref={video} src={project.previewSrc} muted loop playsInline preload="none" onLoadedData={play} onError={stop} aria-hidden="true" tabIndex={-1} className={`pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-ui ${playing ? "opacity-100" : "opacity-0"}`} />}
         <span className="absolute right-2 top-2 rounded-md border border-hairline bg-bg/80 px-2 py-2 font-mono text-xs">{project.duration}</span>
         <span className="absolute inset-0 flex items-center justify-center"><span className="flex h-12 w-12 items-center justify-center rounded-full border border-text/30 bg-bg/70"><Play size={20} className="fill-current" /></span></span>
       </span>
       <span className="flex items-center justify-between gap-4 p-4">
-        <span className="min-w-0"><span className="block text-base font-medium leading-snug">{project.title}</span><span className="mt-2 block text-xs leading-relaxed text-muted">{project.typeLabel} · {project.tags.filter(tag => tag !== project.typeLabel).join(" · ")} · {project.year}</span></span>
+        <span className="min-w-0"><span className="block text-base font-medium leading-snug">{project.title}</span><span className="mt-2 block text-xs leading-relaxed text-muted">{[project.typeLabel, ...project.tags.filter(tag => tag !== project.typeLabel), project.year].join(" · ")}</span></span>
         <ArrowUpRight aria-hidden="true" size={22} className="shrink-0 transition-transform duration-ui group-hover:text-accent motion-safe:group-hover:-translate-y-2 motion-safe:group-hover:translate-x-2 motion-reduce:transition-none" />
       </span>
     </button>
