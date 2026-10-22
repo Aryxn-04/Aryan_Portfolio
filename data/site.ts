@@ -42,9 +42,8 @@ export const hero = {
     secondary: { src: "/logo-card.jpg", alt: "Aryan Kumar monogram", position: "50% 50%" },
   },
   stats: [
-    { value: "2+", label: "Years Experience" },
+    { value: "1.5", label: "Years Experience" },
     { value: "50+", label: "Projects Completed" },
-    { value: "10M+", label: "Views Generated" },
   ],
   skillsLabel: "Skills & Interests",
   skills: ["Video Editing", "Motion Graphics", "Color Grading", "Sound Design", "Storytelling", "Short-form Content", "Brand Films", "Creative Direction"],
