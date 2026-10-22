@@ -37,7 +37,7 @@ export default function Hero({ portraits = { primary: false, secondary: false },
               <button type="button" onClick={onWatchShowreel} className="inline-flex items-center gap-4 rounded-lg border border-hairline px-6 py-4 text-sm font-medium">{hero.watch}<Play aria-hidden="true" size={16} className="fill-current" /></button>
               <a href={hero.resume.href} download className="py-2 text-xs text-muted hover:text-text">{hero.resume.label}</a>
             </div>
-            <dl className="my-6 grid grid-cols-3 divide-x divide-hairline">
+            <dl className="my-6 grid grid-cols-2 divide-x divide-hairline">
               {hero.stats.map((stat) => <div key={stat.label} className="flex flex-col px-4 first:pl-0 last:pr-0"><dt className="order-2 font-mono text-[10px] uppercase leading-relaxed tracking-wide text-muted sm:text-xs">{stat.label}</dt><dd className="mb-2 mt-2 text-2xl font-semibold italic sm:text-3xl">{stat.value}</dd></div>)}
             </dl>
             <h2 className="mb-2 font-mono text-xs uppercase tracking-wide text-muted">{hero.skillsLabel}</h2>
