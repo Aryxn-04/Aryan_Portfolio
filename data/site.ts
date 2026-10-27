@@ -47,7 +47,7 @@ export const hero = {
   ],
   skillsLabel: "Skills & Interests",
   skills: ["Video Editing", "Motion Graphics", "Color Grading", "Sound Design", "Storytelling", "Short-form Content", "Brand Films", "Creative Direction"],
-  resume: { label: "Download Resume", href: "/resume.pdf" },
+  resume: { label: "Download Resume", href: "/ARYAN_Resume.pdf", filename: "Aryan-Kumar-Resume.pdf", ariaLabel: "Download Aryan Kumar's resume (PDF)", hint: "PDF" },
 } as const;
 
 export const showreel = {

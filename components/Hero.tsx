@@ -35,7 +35,7 @@ export default function Hero({ portraits = { primary: false, secondary: false },
             <div className="mt-6 flex flex-wrap items-center gap-4">
               <a href="#work" className="inline-flex items-center gap-4 rounded-lg bg-accent-action px-6 py-4 text-sm font-medium">{hero.work}<ArrowRight aria-hidden="true" size={18} /></a>
               <button type="button" onClick={onWatchShowreel} className="inline-flex items-center gap-4 rounded-lg border border-hairline px-6 py-4 text-sm font-medium">{hero.watch}<Play aria-hidden="true" size={16} className="fill-current" /></button>
-              <a href={hero.resume.href} download className="py-2 text-xs text-muted hover:text-text">{hero.resume.label}</a>
+              <a href={hero.resume.href} download={hero.resume.filename} aria-label={hero.resume.ariaLabel} className="py-2 text-xs text-muted hover:text-text">{hero.resume.label}<span aria-hidden="true" className="ml-2 font-mono text-[9px]">{hero.resume.hint}</span></a>
             </div>
             <dl className="my-6 grid grid-cols-2 divide-x divide-hairline">
               {hero.stats.map((stat) => <div key={stat.label} className="flex flex-col px-4 first:pl-0 last:pr-0"><dt className="order-2 font-mono text-[10px] uppercase leading-relaxed tracking-wide text-muted sm:text-xs">{stat.label}</dt><dd className="mb-2 mt-2 text-2xl font-semibold italic sm:text-3xl">{stat.value}</dd></div>)}
