@@ -42,7 +42,7 @@ export default function ProjectCard({ project, className, onOpen }: Props) {
         <span className="absolute inset-0 flex items-center justify-center"><span className="flex h-12 w-12 items-center justify-center rounded-full border border-text/30 bg-bg/70"><Play size={20} className="fill-current" /></span></span>
       </span>
       <span className="flex items-center justify-between gap-4 p-4">
-        <span className="min-w-0"><span className="block text-base font-medium leading-snug">{project.title}</span><span className="mt-2 block text-xs leading-relaxed text-muted">{[project.typeLabel, ...project.tags.filter(tag => tag !== project.typeLabel), project.year].join(" · ")}</span></span>
+        <span className="min-w-0"><span className="block text-base font-medium leading-snug">{project.title}</span>{project.client && <span className="mt-2 block text-xs leading-relaxed text-muted">{project.client}</span>}<span className="mt-2 block text-xs leading-relaxed text-muted">{[project.typeLabel, ...project.tags.filter(tag => tag !== project.typeLabel), project.year].join(" · ")}</span></span>
         <ArrowUpRight aria-hidden="true" size={22} className="shrink-0 transition-transform duration-ui group-hover:text-accent motion-safe:group-hover:-translate-y-2 motion-safe:group-hover:translate-x-2 motion-reduce:transition-none" />
       </span>
     </button>
