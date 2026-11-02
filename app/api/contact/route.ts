@@ -63,7 +63,7 @@ export async function POST(request: Request) {
       headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
       body: JSON.stringify(emailPayload), signal: AbortSignal.timeout(15000),
     });
-    if (!response.ok) return NextResponse.json({ error: "The email service could not send your message. Please try again later." }, { status: 502 });
+    if (!response.ok) return NextResponse.json({ error: "The email service could not send your message. Please try again later." }, { status: 500 });
     return NextResponse.json({ success: true });
-  } catch { return NextResponse.json({ error: "The email service is unavailable. Please try again later." }, { status: 502 }); }
+  } catch { return NextResponse.json({ error: "The email service is unavailable. Please try again later." }, { status: 500 }); }
 }
