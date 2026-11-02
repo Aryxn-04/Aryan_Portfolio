@@ -23,7 +23,7 @@ export default function VideoModal({ project, onClose, onPrevious, onNext }: Pro
     return () => { element.close(); document.body.style.overflow = previousOverflow; previousFocus?.focus({ preventScroll: true }); };
   }, []);
   const video = project.video;
-  return createPortal(<dialog ref={dialog} aria-labelledby="project-modal-title" onCancel={event => { event.preventDefault(); onClose(); }} onKeyDown={event => {
+  return createPortal(<dialog ref={dialog} aria-labelledby="project-modal-title" aria-describedby="project-modal-brief" onCancel={event => { event.preventDefault(); onClose(); }} onKeyDown={event => {
     if (event.key !== "Tab") return;
     const controls = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('button, video[controls], iframe, [tabindex="0"]'));
     const first = controls[0];
@@ -33,7 +33,7 @@ export default function VideoModal({ project, onClose, onPrevious, onNext }: Pro
   }} onClick={event => { if (event.target === event.currentTarget) onClose(); }} data-lenis-prevent className="fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto border-0 bg-bg/90 p-6 text-text backdrop:bg-transparent">
     <div className="pointer-events-none flex min-h-full items-center justify-center">
       <motion.div initial={{ opacity: 0, scale: reduced ? 1 : 0.94 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: reduced ? 1 : 0.94 }} transition={{ duration: reduced ? 0 : DURATION.ui, ease: EASING }} className="pointer-events-auto w-full max-w-5xl overflow-hidden rounded-lg border border-hairline bg-surface-1">
-        <div className="flex items-center justify-between gap-4 p-4"><div><h2 id="project-modal-title" className="text-lg font-semibold">{project.title}</h2><p className="mt-2 font-mono text-xs text-muted">{project.typeLabel} · {project.year} · {project.duration}</p></div><button type="button" onClick={onClose} aria-label="Close video" className="rounded-md p-2 hover:bg-surface-2"><X /></button></div>
+        <div className="flex items-center justify-between gap-4 p-4"><div className="min-w-0"><h2 id="project-modal-title" className="text-lg font-semibold">{project.title}</h2><p id="project-modal-brief" className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">{project.brief}</p><p className="mt-2 font-mono text-xs text-muted">{project.typeLabel} · {project.year} · {project.duration}</p></div><button type="button" onClick={onClose} aria-label="Close video" className="shrink-0 rounded-md p-2 hover:bg-surface-2"><X /></button></div>
         <div key={project.id} className="relative aspect-video bg-bg">
           <video src={video.src} controls autoPlay playsInline preload="metadata" aria-label={project.title} className="h-full w-full" />
         </div>
