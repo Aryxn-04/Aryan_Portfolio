@@ -1,7 +1,7 @@
-export type Category = "Intro / Motion" | "Commercial" | "Motion Graphics" | "Event Film";
+export type Category = "Intro / Motion" | "Commercial" | "Motion Graphics" | "Event Film" | "Editorial Reel" | "Podcast";
 export type ProjectVideo = { kind: "mp4"; src: string };
 export interface Project {
-  id: string; title: string; tags: Category[]; typeLabel: string; year: number;
+  id: string; title: string; tags: Category[]; typeLabel: string; year: number; client?: string;
   duration: string; poster: string | null; previewSrc?: string; video: ProjectVideo; gradient: string;
 }
 export const workContent = {
@@ -16,4 +16,7 @@ export const projects: Project[] = [
   { id: "logo-reveal", title: "Logo Reveal", tags: ["Motion Graphics"], typeLabel: "Motion Graphics", year: 2025, duration: "00:04", poster: "/posters/logo-reveal.jpg", previewSrc: "/videos/Logo Reveal.mp4", video: { kind: "mp4", src: "/videos/Logo Reveal.mp4" }, gradient: "radial-gradient(ellipse at 80% 70%, #263443, transparent 65%), linear-gradient(145deg, #171a21, #08080a)" },
   { id: "animation", title: "Animation", tags: ["Motion Graphics"], typeLabel: "Motion Graphics", year: 2025, duration: "00:07", poster: "/posters/animation.jpg", previewSrc: "/videos/Animation.mp4", video: { kind: "mp4", src: "/videos/Animation.mp4" }, gradient: "radial-gradient(ellipse at 20% 80%, #3b2333, transparent 65%), linear-gradient(135deg, #21171c, #0b0b0d)" },
   { id: "event-video", title: "Event Video", tags: ["Event Film"], typeLabel: "Event Film", year: 2025, duration: "00:22", poster: "/posters/event-video.jpg", previewSrc: "/videos/Event Video.mp4", video: { kind: "mp4", src: "/videos/Event Video.mp4" }, gradient: "radial-gradient(ellipse at 70% 20%, #3b3322, transparent 65%), linear-gradient(125deg, #211d16, #0b0b0d)" },
+  { id: "ai-editing-tools-editorial-reel-transcurators", title: "AI Editing Tools", tags: ["Editorial Reel"], typeLabel: "Editorial Reel", year: 2025, client: "Transcurators", duration: "00:51", poster: "/posters/ai-editing-tools-editorial-reel-transcurators.jpg", previewSrc: "/videos/AI Editing Tools Editorial Reel - Transcurators.mp4", video: { kind: "mp4", src: "/videos/AI Editing Tools Editorial Reel - Transcurators.mp4" }, gradient: "radial-gradient(ellipse at 70% 20%, #263347, transparent 65%), linear-gradient(140deg, #151a25, #0b0b0d)" },
+  { id: "podcast-edit-2-transcurators", title: "Podcast Edit — Episode 2", tags: ["Podcast"], typeLabel: "Podcast", year: 2025, client: "Transcurators", duration: "00:52", poster: "/posters/podcast-edit-2-transcurators.jpg", previewSrc: "/videos/Podcast Edit 2 - Transcurators.mp4", video: { kind: "mp4", src: "/videos/Podcast Edit 2 - Transcurators.mp4" }, gradient: "radial-gradient(ellipse at 30% 70%, #30253f, transparent 65%), linear-gradient(135deg, #1a1622, #0b0b0d)" },
+  { id: "podcast-edit-1-transcurators", title: "Podcast Edit — Episode 1", tags: ["Podcast"], typeLabel: "Podcast", year: 2025, client: "Transcurators", duration: "00:42", poster: "/posters/podcast-edit-1-transcurators.jpg", previewSrc: "/videos/Podcast Edit 1 - Transcurators.mp4", video: { kind: "mp4", src: "/videos/Podcast Edit 1 - Transcurators.mp4" }, gradient: "radial-gradient(ellipse at 70% 30%, #243b36, transparent 65%), linear-gradient(145deg, #141e1c, #0b0b0d)" },
 ];
